@@ -11,6 +11,7 @@ class SamplesController < ApplicationController
       comment = sample["comment"].truncate(20, omission: '')
       @datas << {user_name: user_name, comment: comment} 
     end
-    render json: @datas
+    @datas = JSON.pretty_generate(@datas)
+    render plain: @datas
   end
 end
