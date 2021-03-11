@@ -1,14 +1,16 @@
 class SamplesController < ApplicationController
   before_action :set_sample, only: [:show, :update, :destroy]
   require 'csv'
+  require "json"
 
   def change
-    @samples = params[:JSON]
     @datas = []
+    @samples = File.open("#{Rails.public_path}/json/data.json") do |j|
+      JSON.load(j)
+    end
     @samples.each do |sample|
-      user_name = sample[:user_name] + "さん"
-      comment = sample[:comment].truncate(23)
-
+      user_name = sample["user_name"] + "さん"
+      comment = sample["comment"].truncate(20)
       @datas << {user_name: user_name, comment: comment} 
     end
     render json: @datas
