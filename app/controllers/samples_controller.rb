@@ -1,8 +1,9 @@
 class SamplesController < ApplicationController
   before_action :set_sample, only: [:show, :update, :destroy]
+  require 'csv'
 
   def change
-    @samples = params[]
+    @samples = params[:JSON]
     @datas = []
     @samples.each do |sample|
       user_name = sample[:user_name] + "さん"
