@@ -10,10 +10,11 @@ class SamplesController < ApplicationController
     end
     @samples.each do |sample|
       user_name = sample["user_name"] + "さん"
-      comment = sample["comment"].truncate(20)
+      comment = sample["comment"].truncate(20, omission: '')
       @datas << {user_name: user_name, comment: comment} 
     end
-    render json: @datas
+    @str = JSON.generate(@datas)
+    render xml: @str
   end
 
   # GET /samples
